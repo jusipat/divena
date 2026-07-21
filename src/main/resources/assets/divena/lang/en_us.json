@@ -1,0 +1,13 @@
+{
+  "itemGroup.divena": "Example Mod Tab",
+  "block.divena.example_block": "Example Block",
+  "item.divena.example_item": "Example Item",
+
+  "divena.configuration.title": "Example Mod Configs",
+  "divena.configuration.section.divena.common.toml": "Example Mod Configs",
+  "divena.configuration.section.divena.common.toml.title": "Example Mod Configs",
+  "divena.configuration.items": "Item List",
+  "divena.configuration.logDirtBlock": "Log Dirt Block",
+  "divena.configuration.magicNumberIntroduction": "Magic Number Text",
+  "divena.configuration.magicNumber": "Magic Number"
+}
