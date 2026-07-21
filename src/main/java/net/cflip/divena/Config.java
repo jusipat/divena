@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package net.cflip.divena;
 
 import java.util.List;
 import java.util.Set;
