@@ -25,7 +25,6 @@ public class DivenaClient {
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
-        Divena.LOGGER.info("HELLO FROM CLIENT SETUP");
-        Divena.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
     }
 }
