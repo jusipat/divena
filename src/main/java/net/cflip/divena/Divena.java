@@ -35,7 +35,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 @Mod(Divena.MODID)
 public class Divena {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "examplemod";
+    public static final String MODID = "divena";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
