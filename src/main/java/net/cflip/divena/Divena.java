@@ -1,6 +1,7 @@
 package net.cflip.divena;
 
 import net.cflip.divena.block.DivenaBlocks;
+import net.cflip.divena.celestial.CelestialManager;
 import net.cflip.divena.item.DivenaItems;
 
 import net.minecraft.core.registries.Registries;
@@ -67,7 +68,7 @@ public class Divena {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
-
+        CelestialManager.buildStarList();
     }
 
     // Add the example block item to the building blocks tab

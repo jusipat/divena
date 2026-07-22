@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.cflip.divena.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "SkyRenderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
