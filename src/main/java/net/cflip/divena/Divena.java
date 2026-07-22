@@ -1,6 +1,7 @@
 package net.cflip.divena;
 
 import net.cflip.divena.block.DivenaBlocks;
+import net.cflip.divena.block.blockentity.DivenaBlockEntities;
 import net.cflip.divena.item.DivenaItems;
 
 import net.minecraft.core.registries.Registries;
@@ -37,7 +38,8 @@ public class Divena {
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> DivenaItems.EXAMPLE_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(DivenaItems.EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(DivenaItems.CM_BLOCK_ITEM.get());
             }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
@@ -50,6 +52,7 @@ public class Divena {
         DivenaBlocks.BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         DivenaItems.ITEMS.register(modEventBus);
+        DivenaBlockEntities.BLOCK_ENTITY_TYPES.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
@@ -73,7 +76,7 @@ public class Divena {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(DivenaItems.EXAMPLE_BLOCK_ITEM);
+            event.accept(DivenaItems.CM_BLOCK_ITEM);
         }
     }
 

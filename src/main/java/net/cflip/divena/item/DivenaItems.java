@@ -16,6 +16,6 @@ public class DivenaItems {
             .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
 
     // Block Items
-    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", DivenaBlocks.EXAMPLE_BLOCK);
+    public static final DeferredItem<BlockItem> CM_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("cosmic_transceiver_block", DivenaBlocks.COSMIC_TRANSCEIVER_BLOCK);
 
 }
