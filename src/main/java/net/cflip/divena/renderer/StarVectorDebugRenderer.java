@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import net.minecraft.gizmos.GizmoStyle;
 import net.minecraft.gizmos.Gizmos;
-import net.minecraft.util.Mth;
 import net.minecraft.util.debug.DebugValueAccess;
 import net.minecraft.world.attribute.EnvironmentAttributeProbe;
 import net.minecraft.world.attribute.EnvironmentAttributes;
@@ -27,10 +26,18 @@ public class StarVectorDebugRenderer implements DebugRenderer.SimpleDebugRendere
 
         Vec3 start = new Vec3(camX, camY, camZ);
 
+        Vec3 search = mc.getCameraEntity().getLookAngle();
+        int foundStar = StarList.findStar(search, skyAngle);
+        Gizmos.circle(start.add(search), 0.1f, GizmoStyle.stroke(0xff5555aa));
+
+        GizmoStyle normalStyle = GizmoStyle.stroke(0xff00aaff);
+        GizmoStyle foundStyle = GizmoStyle.stroke(0xffff55aa);
+
         for (int i = 0; i < StarList.NUM_STARS; i++) {
-            Vec3 starAngle = StarList.getStarVector(i).yRot(-Mth.PI / 2.0f).zRot(-skyAngle);
+            Vec3 starAngle = StarList.getStarVector(i).zRot(-skyAngle);
             Vec3 end = start.add(starAngle);
-            Gizmos.circle(end, 1.0f, GizmoStyle.stroke(0xff00aaff));
+
+            Gizmos.circle(end, 0.01f, i == foundStar ? foundStyle : normalStyle);
         }
     }
 }

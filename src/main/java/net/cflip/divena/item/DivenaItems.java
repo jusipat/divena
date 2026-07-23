@@ -14,6 +14,7 @@ public class DivenaItems {
     // Items
     public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", p -> p.food(new FoodProperties.Builder()
             .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
+    public static final DeferredItem<Item> LASER_POINTER = ITEMS.registerItem("laser_pointer", LaserPointerItem::new);
 
     // Block Items
     public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", DivenaBlocks.EXAMPLE_BLOCK);

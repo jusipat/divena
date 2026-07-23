@@ -31,6 +31,8 @@ public class DivenaClient {
 
     @SubscribeEvent
     public static void registerDebugRenderer(RegisterDebugRenderersEvent event) {
-        event.register(StarVectorDebugRenderer::new);
+        if (false) {
+            event.register(StarVectorDebugRenderer::new);
+        }
     }
 }

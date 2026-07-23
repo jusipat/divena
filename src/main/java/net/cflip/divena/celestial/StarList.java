@@ -3,7 +3,6 @@ package net.cflip.divena.celestial;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
 public class StarList {
     // How many stars the loop will attempt to generate, matches the value in SkyRenderer.buildStars()
@@ -38,14 +37,14 @@ public class StarList {
             float lengthSq = Mth.lengthSquared(x, y, z);
 
             if (lengthSq > 0.01f && lengthSq < 1.0f) {
-                Vector3f starDirection = (new Vector3f(x, y, z)).normalize(100);
+                Vec3 starDirection = (new Vec3(x, y, z)).normalize().yRot(-Mth.PI / 2.0f);
 
                 // Another unused variable, see comment above
                 float zRot = (float) (random.nextDouble() * (double) (float) Math.PI * (double) 2.0F);
 
-                positions[starId * 3] = starDirection.x;
-                positions[starId * 3 + 1] = starDirection.y;
-                positions[starId * 3 + 2] = starDirection.z;
+                positions[starId * 3]     = (float) starDirection.x;
+                positions[starId * 3 + 1] = (float) starDirection.y;
+                positions[starId * 3 + 2] = (float) starDirection.z;
 
                 starId++;
             }
@@ -56,5 +55,15 @@ public class StarList {
 
     public static Vec3 getStarVector(int star) {
         return new Vec3(positions[star * 3], positions[star * 3 + 1], positions[star * 3 + 2]);
+    }
+
+    public static int findStar(Vec3 lookAngle, float starAngle) {
+        for (int i = 0; i < NUM_STARS; i++) {
+            Vec3 starVec = StarList.getStarVector(i).zRot(-starAngle);
+            if (lookAngle.dot(starVec) > 0.9999) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
