@@ -1,12 +1,13 @@
 package net.cflip.divena;
 
-import net.minecraft.client.Minecraft;
+import net.cflip.divena.renderer.StarVectorDebugRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterDebugRenderersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
@@ -26,5 +27,10 @@ public class DivenaClient {
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
 
+    }
+
+    @SubscribeEvent
+    public static void registerDebugRenderer(RegisterDebugRenderersEvent event) {
+        event.register(StarVectorDebugRenderer::new);
     }
 }
