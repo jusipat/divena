@@ -15,4 +15,10 @@ public class DivenaBlocks {
             CosmicTransceiverBlock::new, // The factory that the properties will be passed into.
             BlockBehaviour.Properties::of // The supplied properties to use.
     );
+
+    public static final DeferredBlock<CelestialAltarBlock> CELESTIAL_ALTAR_BLOCK = BLOCKS.registerBlock(
+            "celestial_altar_block",
+            CelestialAltarBlock::new, // The factory that the properties will be passed into.
+            BlockBehaviour.Properties::of // The supplied properties to use.
+    );
 }

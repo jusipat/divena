@@ -17,5 +17,7 @@ public class DivenaItems {
 
     // Block Items
     public static final DeferredItem<BlockItem> CM_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("cosmic_transceiver_block", DivenaBlocks.COSMIC_TRANSCEIVER_BLOCK);
+    public static final DeferredItem<BlockItem> CELESTIAL_ALTAR_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("celestial_altar_block", DivenaBlocks.CELESTIAL_ALTAR_BLOCK);
+
 
 }

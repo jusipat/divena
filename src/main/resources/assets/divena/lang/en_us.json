@@ -1,7 +1,7 @@
 {
   "itemGroup.divena": "Divena",
   "block.divena.cosmic_transceiver_block": "Cosmic Transceiver",
-  "item.divena.example_item": "Example Item",
+  "block.divena.celestial_altar_block": "Celestial Altar",
 
   "divena.configuration.title": "Divena Configs"
 }
