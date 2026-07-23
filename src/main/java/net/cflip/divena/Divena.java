@@ -2,6 +2,7 @@ package net.cflip.divena;
 
 import net.cflip.divena.block.DivenaBlocks;
 import net.cflip.divena.celestial.StarList;
+import net.cflip.divena.block.blockentity.DivenaBlockEntities;
 import net.cflip.divena.item.DivenaItems;
 
 import net.minecraft.core.registries.Registries;
@@ -38,7 +39,10 @@ public class Divena {
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> DivenaItems.EXAMPLE_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(DivenaItems.EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(DivenaItems.CM_BLOCK_ITEM.get());
+                output.accept(DivenaItems.CELESTIAL_ALTAR_BLOCK_ITEM.get());
+
             }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
@@ -51,6 +55,7 @@ public class Divena {
         DivenaBlocks.BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         DivenaItems.ITEMS.register(modEventBus);
+        DivenaBlockEntities.BLOCK_ENTITY_TYPES.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
@@ -59,9 +64,6 @@ public class Divena {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
-        // Register the item to a creative tab
-        modEventBus.addListener(this::addCreative);
-
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -69,13 +71,6 @@ public class Divena {
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
         StarList.buildStarList();
-    }
-
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(DivenaItems.EXAMPLE_BLOCK_ITEM);
-        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

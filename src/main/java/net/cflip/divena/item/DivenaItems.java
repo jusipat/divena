@@ -17,6 +17,8 @@ public class DivenaItems {
     public static final DeferredItem<Item> LASER_POINTER = ITEMS.registerItem("laser_pointer", LaserPointerItem::new);
 
     // Block Items
-    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", DivenaBlocks.EXAMPLE_BLOCK);
+    public static final DeferredItem<BlockItem> CM_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("cosmic_transceiver_block", DivenaBlocks.COSMIC_TRANSCEIVER_BLOCK);
+    public static final DeferredItem<BlockItem> CELESTIAL_ALTAR_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("celestial_altar_block", DivenaBlocks.CELESTIAL_ALTAR_BLOCK);
+
 
 }
