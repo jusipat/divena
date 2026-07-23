@@ -28,11 +28,7 @@ public class StarVectorDebugRenderer implements DebugRenderer.SimpleDebugRendere
         Vec3 start = new Vec3(camX, camY, camZ);
 
         for (int i = 0; i < StarList.NUM_STARS; i++) {
-            Vec3 starVec = StarList.getStarVector(i);
-            if (starVec == null) // TODO: Remove once getStarVector() guarantees not to return null
-                continue;
-
-            Vec3 starAngle = starVec.yRot(-Mth.PI / 2.0f).zRot(-skyAngle);
+            Vec3 starAngle = StarList.getStarVector(i).yRot(-Mth.PI / 2.0f).zRot(-skyAngle);
             Vec3 end = start.add(starAngle);
             Gizmos.circle(end, 1.0f, GizmoStyle.stroke(0xff00aaff));
         }

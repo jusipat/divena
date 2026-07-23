@@ -6,9 +6,14 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 public class StarList {
-    public static final int NUM_STARS = 1500; // Matches the value in SkyRenderer.buildStars()
+    // How many stars the loop will attempt to generate, matches the value in SkyRenderer.buildStars()
+    private static final int GENERATE_COUNT = 1500;
 
-    public static final Vec3[] starData = new Vec3[NUM_STARS];
+    // How many stars are actually generated, since the loop skips some positions.
+    // Since the same sequence of stars is always generated, this value is known ahead of time.
+    public static final int NUM_STARS = 780;
+
+    private static final float[] positions = new float[NUM_STARS * 3];
 
     public static void buildStarList() {
         // NOTE: This star generation algorithm is copied from the SkyRenderer.buildStars() method, therefore it should
@@ -17,33 +22,39 @@ public class StarList {
         // stars will be out of sync from what is seen in the sky.
 
         RandomSource random = RandomSource.createThreadLocalInstance(10842L);
+        int starId = 0;
 
-        for (int i = 0; i < NUM_STARS; ++i) {
+        for (int i = 0; i < GENERATE_COUNT; ++i) {
             // 3D points in the range [-1, 1] are generated, which are then normalized.
 
             float x = random.nextFloat() * 2.0F - 1.0F;
             float y = random.nextFloat() * 2.0F - 1.0F;
             float z = random.nextFloat() * 2.0F - 1.0F;
 
+            // This value isn't used, but it needs to call random.nextDouble() to match the random number sequence
+            // from the other method.
             float starSize = 0.15F + random.nextFloat() * 0.1F;
 
             float lengthSq = Mth.lengthSquared(x, y, z);
 
-            // TODO: Since this occasionally fails, there are gaps in the vertex list where the vector is null.
-            // We should only have indices for stars that were actually generated
             if (lengthSq > 0.01f && lengthSq < 1.0f) {
                 Vector3f starDirection = (new Vector3f(x, y, z)).normalize(100);
 
-                // This value isn't used, but it needs to call random.nextDouble() to match the random number sequence
-                // from the other method.
+                // Another unused variable, see comment above
                 float zRot = (float) (random.nextDouble() * (double) (float) Math.PI * (double) 2.0F);
 
-                starData[i] = new Vec3(starDirection);
+                positions[starId * 3] = starDirection.x;
+                positions[starId * 3 + 1] = starDirection.y;
+                positions[starId * 3 + 2] = starDirection.z;
+
+                starId++;
             }
         }
+
+        assert starId == NUM_STARS;
     }
 
-    public static Vec3 getStarVector(int targetStar) {
-        return starData[targetStar];
+    public static Vec3 getStarVector(int star) {
+        return new Vec3(positions[star * 3], positions[star * 3 + 1], positions[star * 3 + 2]);
     }
 }
