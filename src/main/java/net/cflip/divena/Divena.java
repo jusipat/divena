@@ -1,6 +1,7 @@
 package net.cflip.divena;
 
 import net.cflip.divena.block.DivenaBlocks;
+import net.cflip.divena.celestial.StarList;
 import net.cflip.divena.block.blockentity.DivenaBlockEntities;
 import net.cflip.divena.item.DivenaItems;
 
@@ -69,7 +70,7 @@ public class Divena {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
-
+        StarList.buildStarList();
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
