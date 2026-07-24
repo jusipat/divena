@@ -1,5 +1,7 @@
 package net.cflip.divena;
 
+import net.cflip.divena.block.blockentity.DivenaBlockEntities;
+import net.cflip.divena.renderer.CosmicTransceiverRenderer;
 import net.cflip.divena.renderer.StarVectorDebugRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -7,6 +9,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterDebugRenderersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -27,6 +30,11 @@ public class DivenaClient {
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
 
+    }
+
+    @SubscribeEvent
+    public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(DivenaBlockEntities.COSMIC_TRANSCEIVER_BE.get(), _ -> new CosmicTransceiverRenderer());
     }
 
     @SubscribeEvent
