@@ -9,14 +9,19 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.entity.EnderDragonRenderer;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.attribute.EnvironmentAttributeProbe;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3fc;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class CosmicTransceiverRenderer implements BlockEntityRenderer<CosmicTransceiverBlockEntity, CosmicTransceiverRenderState> {
+    private static final float BEAM_LENGTH = 128;
+
     @Override
     public @NonNull CosmicTransceiverRenderState createRenderState() {
         return new CosmicTransceiverRenderState();
@@ -41,15 +46,37 @@ public class CosmicTransceiverRenderer implements BlockEntityRenderer<CosmicTran
 
     @Override
     public void submit(@NonNull CosmicTransceiverRenderState state, @NonNull PoseStack poseStack, @NonNull SubmitNodeCollector collector, @NonNull CameraRenderState cameraState) {
-        final float beamLength = 128;
-        if (state.targetStarVector == null)
+        if (state.targetStarVector == null) {
             return;
-        Vector3fc targetVec = state.targetStarVector.normalize(beamLength);
-        EnderDragonRenderer.submitCrystalBeams(targetVec.x(), targetVec.y(), targetVec.z(), 0, poseStack, collector, state.lightCoords);
+        }
+
+        poseStack.pushPose();
+
+        Vector3fc targetVec = state.targetStarVector.normalize(-BEAM_LENGTH);
+        poseStack.translate(0.5, -1.0, 0.5);
+        poseStack.translate(new Vec3(targetVec).reverse());
+
+        EnderDragonRenderer.submitCrystalBeams(targetVec.x(), targetVec.y(), targetVec.z(), 0, poseStack, collector, LightCoordsUtil.FULL_BRIGHT);
+
+        poseStack.popPose();
     }
 
     @Override
-    public boolean shouldRender(@NonNull CosmicTransceiverBlockEntity blockEntity, @NonNull Vec3 cameraPosition) {
+    public boolean shouldRenderOffScreen() {
         return true;
+    }
+
+    @Override
+    public int getViewDistance() {
+        return Minecraft.getInstance().options.getEffectiveRenderDistance() * 16;
+    }
+
+    @Override
+    public @NonNull AABB getRenderBoundingBox(CosmicTransceiverBlockEntity blockEntity) {
+        BlockPos blockPos = blockEntity.getBlockPos();
+        return new AABB(
+                blockPos.getX() - BEAM_LENGTH, blockPos.getY(), blockPos.getZ() - BEAM_LENGTH,
+                blockPos.getX() + BEAM_LENGTH, blockPos.getY() + BEAM_LENGTH, blockPos.getZ() + BEAM_LENGTH
+        );
     }
 }
