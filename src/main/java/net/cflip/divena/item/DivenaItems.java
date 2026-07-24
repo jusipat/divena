@@ -2,10 +2,9 @@ package net.cflip.divena.item;
 
 import net.cflip.divena.Divena;
 import net.cflip.divena.block.DivenaBlocks;
+import net.cflip.divena.item.component.TargetStar;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -27,7 +26,7 @@ public class DivenaItems {
     public static final DeferredItem<BlockItem> CELESTIAL_ALTAR_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("celestial_altar_block", DivenaBlocks.CELESTIAL_ALTAR_BLOCK);
 
     // Data Components
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STAR_INDEX = DATA_COMPONENTS.registerComponentType(
-            "star_index", b -> b.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<TargetStar>> TARGET_STAR = DATA_COMPONENTS.registerComponentType(
+            "target_star", b -> b.persistent(TargetStar.CODEC).networkSynchronized(TargetStar.STREAM_CODEC));
 
 }

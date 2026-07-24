@@ -15,6 +15,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.tooltip.TooltipAppender;
+import net.neoforged.neoforge.common.tooltip.TooltipLocation;
+import net.neoforged.neoforge.event.RegisterTooltipAppendersEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -48,6 +51,7 @@ public class Divena {
     public Divena(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::registerTooltipAppenders);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
         DivenaBlocks.BLOCKS.register(modEventBus);
@@ -70,6 +74,10 @@ public class Divena {
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
         StarList.buildStarList();
+    }
+
+    public void registerTooltipAppenders(RegisterTooltipAppendersEvent event) {
+        event.registerAppender(TooltipLocation.TAIL, TooltipAppender.createComponentAppender(DivenaItems.TARGET_STAR.get()));
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

@@ -2,6 +2,7 @@ package net.cflip.divena.item;
 
 import net.cflip.divena.block.blockentity.CosmicTransceiverBlockEntity;
 import net.cflip.divena.celestial.StarList;
+import net.cflip.divena.item.component.TargetStar;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,15 +31,15 @@ public class LaserPointerItem extends Item {
         if (hitResult.getType() == HitResult.Type.BLOCK) {
             BlockEntity be = level.getBlockEntity(hitResult.getBlockPos());
 
-            int starIndex = item.getOrDefault(DivenaItems.STAR_INDEX, -1);
-            if (starIndex == -1) {
+            TargetStar star = item.get(DivenaItems.TARGET_STAR);
+            if (star == null) {
                 return InteractionResult.PASS;
             }
 
             if (!level.isClientSide() && be instanceof CosmicTransceiverBlockEntity transceiver) {
-                if (transceiver.connectToStar(starIndex)) {
-                    player.sendOverlayMessage(Component.literal("Transceiver connected to #" + starIndex));
-                    item.remove(DivenaItems.STAR_INDEX);
+                if (transceiver.connectToStar(star.id())) {
+                    player.sendOverlayMessage(Component.literal("Transceiver connected to #" + star.id()));
+                    item.remove(DivenaItems.TARGET_STAR);
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -60,7 +61,7 @@ public class LaserPointerItem extends Item {
             }
 
             player.sendOverlayMessage(Component.literal("Connected to #" + star));
-            item.set(DivenaItems.STAR_INDEX, star);
+            item.set(DivenaItems.TARGET_STAR, new TargetStar(star));
         }
 
         return InteractionResult.SUCCESS;
