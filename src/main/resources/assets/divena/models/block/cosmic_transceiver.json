@@ -6,7 +6,7 @@
 		"1": "divena:block/cosmic_transceiver_side",
 		"2": "divena:block/cosmic_transceiver_top",
 		"3": "divena:block/cosmic_transceiver_inner_top",
-		"4": "lapis_block",
+		"4": "minecraft:block/lapis_block",
 		"particle": "divena:block/cosmic_transceiver_inner_side"
 	},
 	"elements": [
