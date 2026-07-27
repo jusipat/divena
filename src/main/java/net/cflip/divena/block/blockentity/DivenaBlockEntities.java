@@ -23,7 +23,7 @@ public class DivenaBlockEntities {
                     false,
                     // A vararg of blocks that can have this block entity.
                     // This assumes the existence of the referenced blocks as DeferredBlock<Block>s.
-                    DivenaBlocks.COSMIC_TRANSCEIVER_BLOCK.get()
+                    DivenaBlocks.COSMIC_TRANSCEIVER.get()
             )
     );
 
@@ -38,7 +38,7 @@ public class DivenaBlockEntities {
                     false,
                     // A vararg of blocks that can have this block entity.
                     // This assumes the existence of the referenced blocks as DeferredBlock<Block>s.
-                    DivenaBlocks.CELESTIAL_ALTAR_BLOCK.get()
+                    DivenaBlocks.CELESTIAL_ALTAR.get()
             )
     );
 }

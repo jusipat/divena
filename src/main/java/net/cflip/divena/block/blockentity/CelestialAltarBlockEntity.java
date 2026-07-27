@@ -22,7 +22,7 @@ public class CelestialAltarBlockEntity extends BlockEntity {
                     "000",
                     "010",
                     "000")
-            .where('1', BlockInWorld.hasState(BlockStatePredicate.forBlock(DivenaBlocks.CELESTIAL_ALTAR_BLOCK.get())))
+            .where('1', BlockInWorld.hasState(BlockStatePredicate.forBlock(DivenaBlocks.CELESTIAL_ALTAR.get())))
             .where('0', BlockInWorld.hasState(state ->
                     state.is(BlockTags.CANDLES) &&
                             state.hasProperty(CandleBlock.CANDLES) &&

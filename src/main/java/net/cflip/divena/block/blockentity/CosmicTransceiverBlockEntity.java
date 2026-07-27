@@ -53,7 +53,7 @@ public class CosmicTransceiverBlockEntity extends BlockEntity {
                     "000",
                     "010",
                     "000")
-            .where('1', BlockInWorld.hasState(BlockStatePredicate.forBlock(DivenaBlocks.COSMIC_TRANSCEIVER_BLOCK.get())))
+            .where('1', BlockInWorld.hasState(BlockStatePredicate.forBlock(DivenaBlocks.COSMIC_TRANSCEIVER.get())))
             .where('0', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.IRON_BLOCK))).build();
 
     public boolean checkPattern() {

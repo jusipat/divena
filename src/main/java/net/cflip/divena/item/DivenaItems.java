@@ -17,13 +17,11 @@ public class DivenaItems {
     public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Divena.MODID);
 
     // Items
-    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", p -> p.food(new FoodProperties.Builder()
-            .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
     public static final DeferredItem<Item> LASER_POINTER = ITEMS.registerItem("laser_pointer", LaserPointerItem::new);
 
     // Block Items
-    public static final DeferredItem<BlockItem> CM_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("cosmic_transceiver_block", DivenaBlocks.COSMIC_TRANSCEIVER_BLOCK);
-    public static final DeferredItem<BlockItem> CELESTIAL_ALTAR_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("celestial_altar_block", DivenaBlocks.CELESTIAL_ALTAR_BLOCK);
+    public static final DeferredItem<BlockItem> CM_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("cosmic_transceiver", DivenaBlocks.COSMIC_TRANSCEIVER);
+    public static final DeferredItem<BlockItem> CELESTIAL_ALTAR_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("celestial_altar", DivenaBlocks.CELESTIAL_ALTAR);
 
     // Data Components
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<TargetStar>> TARGET_STAR = DATA_COMPONENTS.registerComponentType(

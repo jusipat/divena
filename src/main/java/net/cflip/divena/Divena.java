@@ -38,11 +38,12 @@ public class Divena {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("divena_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.divena")) //The language key for the title of your CreativeModeTab
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> DivenaItems.EXAMPLE_ITEM.get().getDefaultInstance())
+            .icon(() -> DivenaItems.CM_BLOCK_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 // Add the example item to the tab. For your own tabs, this method is preferred over the event
-                output.accept(DivenaItems.CM_BLOCK_ITEM.get());
-                output.accept(DivenaItems.CELESTIAL_ALTAR_BLOCK_ITEM.get());
+                output.accept(DivenaItems.CM_BLOCK_ITEM);
+                output.accept(DivenaItems.CELESTIAL_ALTAR_BLOCK_ITEM);
+                output.accept(DivenaItems.LASER_POINTER);
 
             }).build());
 

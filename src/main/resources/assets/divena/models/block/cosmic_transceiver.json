@@ -1,6 +1,4 @@
 {
-	"format_version": "1.21.11",
-	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "divena:block/cosmic_transceiver_inner_side",
 		"1": "divena:block/cosmic_transceiver_side",
