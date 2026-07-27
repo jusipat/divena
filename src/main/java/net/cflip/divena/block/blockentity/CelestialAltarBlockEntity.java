@@ -3,6 +3,7 @@ package net.cflip.divena.block.blockentity;
 import net.cflip.divena.block.DivenaBlocks;
 import net.cflip.divena.ritual.RitualTrial;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
@@ -36,25 +37,32 @@ public class CelestialAltarBlockEntity extends BlockEntity {
         super(DivenaBlockEntities.CELESTIAL_ALTAR_BE.get(), worldPosition, blockState);
     }
 
-    public boolean tryStartRitual() {
-        BlockPos pos = getBlockPos();
+    // Needs to be a separate method from startRitual so the client can test the interaction without starting the ritual locally
+    public boolean canStartRitual(Player user) {
+        // Not sure when this would ever be the case, but it counts as a fail
+        if (level == null) {
+            return false;
+        }
 
+        // TODO: This check fails and causes desync on the client
         if (ongoingTrial != null) {
+            user.sendOverlayMessage(Component.literal("A ritual is already ongoing"));
             return false;
         }
 
-        if (candleCombo.find(level, pos) == null) {
+        if (candleCombo.find(level, getBlockPos()) == null) {
+            user.sendOverlayMessage(Component.literal("This arrangement is not befitting of a ritual"));
             return false;
         }
-
-        Player player = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 16, false);
-        if (player instanceof ServerPlayer serverPlayer) {
-            ongoingTrial = new RitualTrial();
-//            level.setData(Divena.RITUAL_TRIAL.get(), ongoingTrial);
-            ongoingTrial.begin(level, serverPlayer);
-        }
-
         return true;
+    }
+
+    public void startRitual(ServerPlayer user) {
+        if (!canStartRitual(user)) {
+            return;
+        }
+        ongoingTrial = new RitualTrial();
+        ongoingTrial.begin(level, user);
     }
 
     public void endRitual() {
