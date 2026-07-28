@@ -53,7 +53,7 @@ public abstract class RitualTrial {
 
     public void begin(ServerPlayer player) {
         setup(player);
-        showPopup(player, Component.literal("Ritual Challenge"), getObjectiveSubtitle());
+        showPopup(player, Component.translatable("event.divena.trial.title"), getObjectiveSubtitle());
         playSound(SoundEvents.WITHER_SPAWN, 1.0f, 1.0f);
         bossEvent.addPlayer(player);
         bossEvent.setCreateWorldFog(true);

@@ -2,6 +2,14 @@
   "itemGroup.divena": "Divena",
   "block.divena.cosmic_transceiver": "Cosmic Transceiver",
   "block.divena.celestial_altar": "Celestial Altar",
+  "block.divena.celestial_altar.ritual_ongoing": "A ritual is already ongoing",
+  "block.divena.celestial_altar.bad_multiblock": "This arrangement is not befitting of a ritual",
+
+  "event.divena.trial.title": "Ritual Challenge",
+  "event.divena.trial.kill_monsters.objective": "Defeat %1$s zombies in %2$s seconds",
+  "event.divena.trial.kill_monsters.remaining": "%1$s/%2$s zombies left",
+  "event.divena.trial.mine_diamonds.objective": "Mine %1$s diamonds in %2$s seconds",
+  "event.divena.trial.mine_diamonds.remaining": "%1$s/%2$s diamonds mined",
 
   "divena.configuration.title": "Divena Configs"
 }

@@ -62,11 +62,11 @@ public class MineDiamondsTrial extends RitualTrial {
 
     @Override
     protected Component getObjectiveSubtitle() {
-        return Component.literal("Mine " + BLOCK_COUNT + " diamonds in " + DURATION / SharedConstants.TICKS_PER_SECOND + " seconds");
+        return Component.translatable("event.divena.trial.mine_diamonds.objective", BLOCK_COUNT, DURATION / SharedConstants.TICKS_PER_SECOND);
     }
 
     @Override
     protected Component getRemainingObjectivesMessage(int remaining, int total) {
-        return Component.literal(remaining + "/" + total + " diamonds mined");
+        return Component.translatable("event.divena.trial.mine_diamonds.remaining", remaining, total);
     }
 }

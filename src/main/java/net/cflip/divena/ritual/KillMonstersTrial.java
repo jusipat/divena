@@ -79,11 +79,11 @@ public class KillMonstersTrial extends RitualTrial {
 
     @Override
     protected Component getObjectiveSubtitle() {
-        return Component.literal("Defeat 10 zombies in 30 seconds");
+        return Component.translatable("event.divena.trial.kill_monsters.objective", ENEMY_COUNT, DURATION / SharedConstants.TICKS_PER_SECOND);
     }
 
     @Override
     protected Component getRemainingObjectivesMessage(int remaining, int total) {
-        return Component.literal(remaining + "/" + total + " zombies left");
+        return Component.translatable("event.divena.trial.kill_monsters.remaining", remaining, total);
     }
 }

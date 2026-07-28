@@ -49,12 +49,12 @@ public class CelestialAltarBlockEntity extends BlockEntity {
 
         // TODO: This check fails and causes desync on the client
         if (ongoingTrial != null) {
-            user.sendOverlayMessage(Component.literal("A ritual is already ongoing"));
+            user.sendOverlayMessage(Component.translatable("block.divena.celestial_altar.ritual_ongoing"));
             return false;
         }
 
         if (candleCombo.find(level, getBlockPos()) == null) {
-            user.sendOverlayMessage(Component.literal("This arrangement is not befitting of a ritual"));
+            user.sendOverlayMessage(Component.translatable("block.divena.celestial_altar.bad_multiblock"));
             return false;
         }
         return true;
