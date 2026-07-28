@@ -10,6 +10,8 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -55,12 +57,27 @@ public class RitualTrial {
         }
     }
 
-    public void begin(Level level, ServerPlayer player) {
+    public void begin(Level level, ServerPlayer player, BlockPos blockPos) {
         showPopup(player, Component.literal("Ritual Challenge"), Component.literal("Defeat 10 zombies in 30 seconds"));
+        level.playSound(null, blockPos, SoundEvents.WITHER_SPAWN, SoundSource.BLOCKS);
+
+        RandomSource random = RandomSource.create();
+
+        double xp = blockPos.getX() - player.getX();
+        double zp = blockPos.getZ() - player.getZ();
+        double playerAngle = Math.atan2(zp, xp);
 
         for (int i = 0; i < totalEnemies; i++) {
             LivingEntity enemy = new Zombie(level);
-            enemy.setPos(player.position());
+
+            double angle = playerAngle + (random.nextDouble() * 2.0f - 1.0f) * Mth.HALF_PI;
+            double dist = 10.0f + random.nextDouble() * 5.0f;
+
+            double x = blockPos.getX() + Math.sin(angle) * dist;
+            double y = blockPos.getY();
+            double z = blockPos.getZ() + Math.cos(angle) * dist;
+
+            enemy.setPos(x, y, z);
             enemy.addEffect(new MobEffectInstance(MobEffects.GLOWING, DURATION, 0));
 
             activeEnemies.add(enemy.getUUID());

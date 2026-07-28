@@ -5,8 +5,6 @@ import net.cflip.divena.ritual.RitualTrial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -64,8 +62,7 @@ public class CelestialAltarBlockEntity extends BlockEntity {
             return;
         }
         ongoingTrial = new RitualTrial();
-        ongoingTrial.begin(level, user);
-        level.playSound(null, getBlockPos(), SoundEvents.WITHER_SPAWN, SoundSource.BLOCKS);
+        ongoingTrial.begin(level, user, getBlockPos());
     }
 
     public void endRitual() {
