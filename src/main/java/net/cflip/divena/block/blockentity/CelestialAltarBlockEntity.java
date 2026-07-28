@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class CelestialAltarBlockEntity extends BlockEntity {
@@ -76,6 +77,11 @@ public class CelestialAltarBlockEntity extends BlockEntity {
             ongoingTrial.end(success);
             ongoingTrial = null;
         }
+    }
+
+    @Override
+    public void preRemoveSideEffects(@NonNull BlockPos pos, @NonNull BlockState state) {
+        endRitual(false);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, CelestialAltarBlockEntity altar) {
