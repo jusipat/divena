@@ -1,6 +1,7 @@
 package net.cflip.divena.block.blockentity;
 
 import net.cflip.divena.block.DivenaBlocks;
+import net.cflip.divena.ritual.KillMonstersTrial;
 import net.cflip.divena.ritual.RitualTrial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -61,20 +62,20 @@ public class CelestialAltarBlockEntity extends BlockEntity {
         if (!canStartRitual(user)) {
             return;
         }
-        ongoingTrial = new RitualTrial();
-        ongoingTrial.begin(level, user, getBlockPos());
+        ongoingTrial = new KillMonstersTrial(level, this);
+        ongoingTrial.begin(user);
     }
 
-    public void endRitual() {
+    public void endRitual(boolean success) {
         if (ongoingTrial != null) {
-            ongoingTrial.end();
+            ongoingTrial.end(success);
             ongoingTrial = null;
         }
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, CelestialAltarBlockEntity altar) {
         if (altar.ongoingTrial != null) {
-            altar.ongoingTrial.tick(level, blockPos, blockState, altar);
+            altar.ongoingTrial.tick();
         }
     }
 }
