@@ -1,8 +1,14 @@
 package net.cflip.divena.block.blockentity;
 
 import net.cflip.divena.block.DivenaBlocks;
+import net.cflip.divena.ritual.KillMonstersTrial;
+import net.cflip.divena.ritual.MineDiamondsTrial;
+import net.cflip.divena.ritual.RitualTrial;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CandleBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -12,12 +18,9 @@ import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jspecify.annotations.Nullable;
 
 public class CelestialAltarBlockEntity extends BlockEntity {
-    public CelestialAltarBlockEntity(BlockPos worldPosition, BlockState blockState) {
-        super(DivenaBlockEntities.CELESTIAL_ALTAR_BE.get(), worldPosition, blockState);
-    }
-
     private static final BlockPattern candleCombo = BlockPatternBuilder.start().aisle(
                     "000",
                     "010",
@@ -30,16 +33,54 @@ public class CelestialAltarBlockEntity extends BlockEntity {
                             state.getValue(CandleBlock.CANDLES) == 4
             )).build();
 
-    public void checkPattern() {
-        Level level = getLevel();
+    private @Nullable RitualTrial ongoingTrial;
+
+    public CelestialAltarBlockEntity(BlockPos worldPosition, BlockState blockState) {
+        super(DivenaBlockEntities.CELESTIAL_ALTAR_BE.get(), worldPosition, blockState);
+    }
+
+    // Needs to be a separate method from startRitual so the client can test the interaction without starting the ritual locally
+    public boolean canStartRitual(Player user) {
+        // Not sure when this would ever be the case, but it counts as a fail
         if (level == null) {
-            return;
+            return false;
         }
 
-        BlockPattern.BlockPatternMatch match = candleCombo.find(level, getBlockPos());
+        // TODO: This check fails and causes desync on the client
+        if (ongoingTrial != null) {
+            user.sendOverlayMessage(Component.literal("A ritual is already ongoing"));
+            return false;
+        }
 
-        if (match != null) {
-            System.out.println("Multiblock complete");
+        if (candleCombo.find(level, getBlockPos()) == null) {
+            user.sendOverlayMessage(Component.literal("This arrangement is not befitting of a ritual"));
+            return false;
+        }
+        return true;
+    }
+
+    public void startRitual(ServerPlayer user) {
+        if (!canStartRitual(user)) {
+            return;
+        }
+        if (level.getRandom().nextBoolean()) {
+            ongoingTrial = new MineDiamondsTrial(level, this);
+        } else {
+            ongoingTrial = new KillMonstersTrial(level, this);
+        }
+        ongoingTrial.begin(user);
+    }
+
+    public void endRitual(boolean success) {
+        if (ongoingTrial != null) {
+            ongoingTrial.end(success);
+            ongoingTrial = null;
+        }
+    }
+
+    public static void tick(Level level, BlockPos blockPos, BlockState blockState, CelestialAltarBlockEntity altar) {
+        if (altar.ongoingTrial != null) {
+            altar.ongoingTrial.tick();
         }
     }
 }
